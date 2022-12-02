@@ -1,6 +1,6 @@
 from PackagesSetup import *
 
-from Views import *
+from BasicViews import *
 from Controllers import *
 
 from Engine.BlackScholes import *
