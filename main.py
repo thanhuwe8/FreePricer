@@ -1,9 +1,9 @@
 from PackagesSetup import *
 
-from BasicViews import *
-from Controllers import *
+from Views.BasicViews import *
+from Controllers.Controllers import *
 
-from Engine.BlackScholes import *
+from Engines.BlackScholes import *
 
 import tkinter as tk
 from tkinter import *

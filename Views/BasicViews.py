@@ -8,12 +8,51 @@ from abc import abstractmethod
 from typing import List
 
 
+
+class LabelEntry(tk.Frame):
+    def __init__(self, master, var, label,
+                input_args=None, *args, **kwargs):
+        
+        super().__init__(master, *args, **kwargs)
+
+        input_args = input_args or {}
+
+        self.variable = var
+        self.label = ttk.Label(self, text=label).grid(row=0,column=0,sticky=(tk.W + tk.E))
+        self.input = ttk.Entry(self, **input_args).grid(row=1, column=0, sticky=(tk.W + tk.E))
+
+        self.columnconfigure(0, weight=1)
+
+
+class LabelRadioButton(tk.Frame):
+    def __init__(self, master, var, label,
+                input_args=None, *args, **kwargs):
+        
+        '''
+        LabelInput(r_info, "Lab", input_class=ttk.Radiobutton,var=self._vars['Lab'], input_args={"values": ["A", "B", "C"]}).grid(row=1, column=0)
+        '''
+        
+        super().__init__(master, **kwargs)
+        
+        input_args = input_args or {}
+        
+        self.variable = var
+        
+        for v in input_args.pop('values', []):
+            button = ttk.Radiobutton(self, text=v, value=v, variable=self.variable,**input_args).pack(side=tk.TOP, ipadx=10, ipady=2, expand=True, fill='x')
+        
+        self.columnconfigure(0, weight=1)
+
+    
+
+
+
+#? Used for MVC pattern
 class View(tk.Frame):
     @abstractmethod
     def create_view():
         raise NotImplementedError
     
-
 
 class Form(View):
     

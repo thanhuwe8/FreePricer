@@ -1,5 +1,5 @@
 from PackagesSetup import *
-from BasicViews import *
+from Views.BasicViews import *
 
 from abc import ABC, abstractmethod
 from tkinter import *
