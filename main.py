@@ -1,9 +1,8 @@
 from PackagesSetup import *
 
-from Views.BasicViews import *
-from Controllers.Controllers import *
-
-from Engines.BlackScholes import *
+from Views.EQPricingViews import *
+from Controllers.EquityControllers import *
+from Models.Analytical.BlackScholes import *
 
 import tkinter as tk
 from tkinter import *
