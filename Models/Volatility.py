@@ -1,5 +1,5 @@
 from PackagesSetup import *
-from Engines.BlackScholes import *
+from Models.BlackScholes import *
 
 
 def ImpliedVolatility(Model,Optiontype,S,K,t,r,q,vol_first,OptionPrice):

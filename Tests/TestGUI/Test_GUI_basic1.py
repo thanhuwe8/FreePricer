@@ -1,8 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-from Views.BasicViews import *
-
+from Views.EQPricingViews import *
 
 
 

@@ -1,4 +1,5 @@
 from PackagesSetup import *
+from Views.BaseViews import *
 
 import tkinter
 import tkinter as tk
@@ -43,16 +44,6 @@ class LabelRadioButton(tk.Frame):
         
         self.columnconfigure(0, weight=1)
 
-    
-
-
-
-#? Used for MVC pattern
-class View(tk.Frame):
-    @abstractmethod
-    def create_view():
-        raise NotImplementedError
-    
 
 class Form(View):
     

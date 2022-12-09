@@ -4,7 +4,7 @@ from Utils.Types import *
 from Utils.Vars import *
 from Utils.Maths import *
 
-from Engines.BaseModel import *
+from Models.Analytical.Analytical.BaseModel import *
 
 
 class BlackScholes(BaseModel):
