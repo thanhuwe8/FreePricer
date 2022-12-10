@@ -23,9 +23,9 @@ class BlackScholesController(Controller):
         self.data = None
         self.option_list = option_list
         
-    def bind(self,view=Form):
+    def bind(self,view=BaseView):
         self.view = view
-        self.view.CreateBlackScholesView(option_list = self.option_list)
+        self.view.CreateBSView(option_list = self.option_list)
         self.view.buttons['CalculateBSPrice'].configure(command=self.ControllerCalculateBSprice)
     
     def ControllerCalculateBSprice(self):

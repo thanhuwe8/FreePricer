@@ -4,7 +4,7 @@ from Utils.Types import *
 from Utils.Vars import *
 from Utils.Maths import *
 
-from Models.Analytical.Analytical.BaseModel import *
+from Models.Analytical.BaseModel import *
 
 
 class BlackScholes(BaseModel):
@@ -50,7 +50,6 @@ class BlackScholes(BaseModel):
             return 0.0
         payoff = np.maximum((S-K)*phi, 0)
         return(payoff)
-
 
     def Calc(self,Optiontype,S,K,t,r,q,vol):
         if Optiontype == Optiontypes.EUROPEAN_CALL:
@@ -136,7 +135,8 @@ class BlackScholes(BaseModel):
         theta = -1*sdc*NPDF(d1)*vol/2.0/sqrtT-phi*r*K*np.exp(-r*t)*NCDF(phi*d2) + phi*q*sdc*NCDF(phi*d1)
         return(theta)
     
-    
+
+
     def rho(self,Optiontype,S,K,t,r,q,vol):
         if Optiontype == Optiontypes.EUROPEAN_CALL:
             phi = 1
@@ -160,8 +160,67 @@ class BlackScholes(BaseModel):
         
         rho = phi*K*t*np.exp(-r*t)*NCDF(phi*d2)
         return(rho)
+
+
+    def BSSensitivityAnalysis(self, S, K, t, r, q, vol, Optiontype, metrics,
+                            xaxis, yaxis, lower_bound, upper_bound, npoints):
         
+        
+        lower_bound = np.maximum(0.01, lower_bound)
+        upper_bound = np.minimum(5, upper_bound)
+        
+        selection_dict = {
+            'S':S,
+            'K':K,
+            't':t,
+            'r':r,
+            'q':q,
+            'vol':vol
+        }
+        
+        BSparameters = {'S':S,
+                        'K':K,
+                        't':t,
+                        'r':r,
+                        'q':q,
+                        'vol':vol,
+                        'Optiontype':Optiontype}
+        
+        xaxis_var= selection_dict[xaxis]
+        yaxis_var= selection_dict[yaxis]
+
+        xGrid = np.linspace(xaxis_var*lower_bound,xaxis_var*upper_bound,npoints)
+        yGrid = np.linspace(xaxis_var*lower_bound, yaxis_var*upper_bound,npoints)
+
+        #? use meshgrid to create a 2-d dimension quickly
+        x, y = np.meshgrid(xGrid, yGrid)
+        
+        #? configure the parameters list
+        BSparameters.pop(xaxis, None)
+        BSparameters.pop(yaxis, None)
+        BSparameters[xaxis] = x 
+        BSparameters[yaxis] = y
+        
+        #? vectorize BS calculation
+        if metrics == 'Price':
+            Calculation_vectorized = np.vectorize(self.Calc)
+        elif metrics == 'Delta':
+            Calculation_vectorized = np.vectorize(self.delta)
+        elif metrics == 'Gamma':
+            Calculation_vectorized = np.vectorize(self.gamma)
+        elif metrics == 'Theta':
+            Calculation_vectorized = np.vectorize(self.theta)
+        elif metrics == 'Vega':
+            Calculation_vectorized = np.vectorize(self.vega)
+        elif metrics == 'Rho':
+            Calculation_vectorized = np.vectorize(self.rho)
+        else:
+            print("Please only use string {'Price', 'Delta', 'Gamma', 'Theta', 'Vega', 'Rho'} for 'metrics'")
+            return(0.0)
     
+        Result = Calculation_vectorized(**BSparameters)
     
-    
-    
+        return({xaxis:x, yaxis:y, metrics:Result})
+
+
+

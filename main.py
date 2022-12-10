@@ -16,12 +16,14 @@ class Application(ttk.Notebook):
         super().__init__(master)
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
-        self.grid(row=0,column=0,sticky=tk.N+tk.W)
+        self.grid(row=0,column=0,sticky=tk.E+tk.W+tk.N+tk.S)
     
+    #? use functional programming as part of parameters
     def new_tab(self,controller,view,name):
         view = view(self)
         controller.bind(view)
         self.add(view,text=name)
+
 
 if __name__=="__main__":
     
@@ -34,4 +36,6 @@ if __name__=="__main__":
     
     BSmodel = BlackScholes()
     BSController = BlackScholesController(model=BlackScholes(), option_list=['EU Call', 'EU Put'])
-    app.new_tab(controller=BSController, view=Form, name='BlackScholes')
+    app.new_tab(controller=BSController, view=BaseView, name='BlackScholes')
+    
+    root.mainloop()
