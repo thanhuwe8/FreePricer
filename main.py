@@ -1,7 +1,7 @@
 from PackagesSetup import *
 
 from Views.EQPricingViews import *
-from Controllers.EquityControllers import *
+from Controllers.EQPricingController import *
 from Models.Analytical.BlackScholes import *
 
 import tkinter as tk
@@ -35,7 +35,7 @@ if __name__=="__main__":
     app = Application(master=root)
     
     BSmodel = BlackScholes()
-    BSController = BlackScholesController(model=BlackScholes(), option_list=['EU Call', 'EU Put'])
-    app.new_tab(controller=BSController, view=BaseView, name='BlackScholes')
+    BSController = BlackScholesController(model=BlackScholes(), option_list=['EUROPEAN_CALL', 'EUROPEAN_PUT'])
+    app.new_tab(controller=BSController, view=BaseView, name='BS calculator')
     
     root.mainloop()

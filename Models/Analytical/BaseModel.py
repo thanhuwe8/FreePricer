@@ -4,3 +4,4 @@ class BaseModel():
     @abstractmethod
     def Calc(self):
         raise NotImplementedError
+

@@ -190,7 +190,7 @@ class BlackScholes(BaseModel):
         yaxis_var= selection_dict[yaxis]
 
         xGrid = np.linspace(xaxis_var*lower_bound,xaxis_var*upper_bound,npoints)
-        yGrid = np.linspace(xaxis_var*lower_bound, yaxis_var*upper_bound,npoints)
+        yGrid = np.linspace(yaxis_var*lower_bound, yaxis_var*upper_bound,npoints)
 
         #? use meshgrid to create a 2-d dimension quickly
         x, y = np.meshgrid(xGrid, yGrid)
@@ -224,3 +224,27 @@ class BlackScholes(BaseModel):
 
 
 
+class BlackScholesDigital(BlackScholes):
+    def __init__(self):
+        super().__init__()
+    
+    def payoff(self):
+        pass
+    
+    def calc(self):
+        pass
+    
+    def delta(self):
+        pass
+    
+    def gamma(self):
+        pass
+    
+    def vega(self):
+        pass
+    
+    def theta(self):
+        pass
+    
+    def rho(self):
+        pass

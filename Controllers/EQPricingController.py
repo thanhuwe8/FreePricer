@@ -9,11 +9,7 @@ from tkinter import messagebox as msg
 from tkinter.ttk import Notebook
 from tkinter import filedialog
 
-class Controller(ABC):
-    @abstractmethod
-    def bind(view:View):
-        raise NotImplementedError
-    
+from Controllers.BaseControllers import *
 
 class BlackScholesController(Controller):
     
@@ -27,6 +23,6 @@ class BlackScholesController(Controller):
         self.view = view
         self.view.CreateBSView(option_list = self.option_list)
         self.view.buttons['CalculateBSPrice'].configure(command=self.ControllerCalculateBSprice)
-    
+
     def ControllerCalculateBSprice(self):
         pass
